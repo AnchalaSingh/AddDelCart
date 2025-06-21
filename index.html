@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cart Selection</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Select Your Items</h1>
+    <div id="cart-container" class="cart-container"></div>
+    <div class="center">
+      <button onclick="startForm()">Start</button>
+    </div>
+  </div>
+
+  <script>
+    const items = ['A', 'B', 'C', 'D'];
+    let cartData = {};
+
+    function renderCarts() {
+      const container = document.getElementById('cart-container');
+      items.forEach(item => {
+        cartData[item] = 0;
+        const div = document.createElement('div');
+        div.className = 'cart';
+        div.innerHTML = `
+          <span class="item">${item}</span>
+          <button onclick="changeCount('${item}', -1)">-</button>
+          <span id="count-${item}">0</span>
+          <button onclick="changeCount('${item}', 1)">+</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function changeCount(item, delta) {
+      cartData[item] = Math.max(0, cartData[item] + delta);
+      document.getElementById(`count-${item}`).innerText = cartData[item];
+    }
+
+    function startForm() {
+      localStorage.setItem('cartData', JSON.stringify(cartData));
+      window.location.href = 'form.html';
+    }
+
+    renderCarts();
+  </script>
+</body>
+</html>

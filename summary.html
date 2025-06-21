@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Summary</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Summary of Your Inputs</h1>
+    <div id="summary"></div>
+    <div class="center">
+      <button onclick="window.location.href='index.html'">Start Over</button>
+    </div>
+  </div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cartData')) || {};
+    const user = JSON.parse(localStorage.getItem('userData')) || {};
+
+    const summaryDiv = document.getElementById('summary');
+    summaryDiv.innerHTML = `
+      <h3>Cart Selection:</h3>
+      <ul>${Object.entries(cart).map(([k, v]) => `<li>${k}: ${v}</li>`).join('')}</ul>
+      <h3>User Info:</h3>
+      <p><strong>Name:</strong> ${user.name}</p>
+      <p><strong>Phone:</strong> ${user.phone}</p>
+      <p><strong>Gender:</strong> ${user.gender}</p>
+      <p><strong>ID Number:</strong> ${user.idNumber}</p>
+      <p><strong>State:</strong> ${user.state}</p>
+      <p><strong>Preferred States:</strong> ${user.preferredStates?.join(', ')}</p>
+      <p><strong>Availability:</strong> ${user.availability}</p>
+      <p><strong>Location:</strong> ${user.location}</p>
+    `;
+  </script>
+</body>
+</html>
